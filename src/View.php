@@ -5,7 +5,7 @@ namespace Sofi\mvc;
 class View extends \stdClass {
     const VIEW_EXT = '.phtml';
 
-    protected $path = '../app/resources/views/';
+    protected $path = '..'.DIRECTORY_SEPARATOR.'app'.DIRECTORY_SEPARATOR.'resources'.DIRECTORY_SEPARATOR.'views'.DIRECTORY_SEPARATOR;
     protected $name = 'index';
     protected $params = [];
     protected $layout = '';
@@ -41,7 +41,7 @@ class View extends \stdClass {
     }
 
     protected function view() {
-        $file = realpath($this->path) . DS . $this->name . static::VIEW_EXT;
+        $file = realpath($this->path) . DIRECTORY_SEPARATOR . $this->name . static::VIEW_EXT;
         if (file_exists($file)) {
             extract($this->params);
             include $file;
@@ -51,7 +51,7 @@ class View extends \stdClass {
     }
     
     protected function snippet($name, $params = []) {
-        $file = realpath($this->path.DS.'../snippets') . DS . $name . static::VIEW_EXT;
+        $file = realpath($this->path.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'snippets') . DIRECTORY_SEPARATOR . $name . static::VIEW_EXT;
         if (file_exists($file)) {
             extract($params);
             include $file;
@@ -81,7 +81,7 @@ class View extends \stdClass {
         $params = $this->params;
         
         $this->name = $this->layout;
-        $this->path = realpath($this->path.'/../layouts');
+        $this->path = realpath($this->path.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'layouts');
         $this->params = ['content' => $content];
         
         $rs = $this->_render(true);
