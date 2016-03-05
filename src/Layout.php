@@ -4,14 +4,14 @@ namespace Sofi\mvc;
 
 class Layout extends \stdClass
 {
+
     use \Sofi\mvc\traits\view\Out;
 
     const VIEW_EXT = '.phtml';
 
-    protected $path = '..' . DIRECTORY_SEPARATOR . 'app' . DIRECTORY_SEPARATOR . 'resources' . DIRECTORY_SEPARATOR . 'layout' . DIRECTORY_SEPARATOR;
+    protected $path = '..' . DIRECTORY_SEPARATOR . 'app' . DIRECTORY_SEPARATOR . 'resources' . DIRECTORY_SEPARATOR . 'layouts' . DIRECTORY_SEPARATOR;
     protected $name = 'main';
     protected $content = [];
-    
     protected $helpers = [];
 
     public function __construct($path = null)
@@ -20,7 +20,7 @@ class Layout extends \stdClass
             $this->path = $path;
         }
     }
-
+        
     public function __get($name)
     {
         return !empty($this->content[$name]) ? $this->content[$name] : '';
@@ -28,12 +28,19 @@ class Layout extends \stdClass
 
     function addContent($content)
     {
-        if (is_array($content)){
+        if (is_array($content)) {
             $this->content = array_merge($this->content, $content);
         } else {
             $this->content[] = $content;
         }
-        
+
+        return $this;
+    }
+
+    function setContent(array $content)
+    {
+        $this->content[] = $content;
+
         return $this;
     }
 
@@ -46,9 +53,8 @@ class Layout extends \stdClass
     {
         ob_start();
         $this->out();
-        $this->result = ob_get_clean();
 
-        return $this->result;
+        return ob_get_clean();
     }
 
 }
