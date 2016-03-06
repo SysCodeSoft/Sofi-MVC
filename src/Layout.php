@@ -20,10 +20,22 @@ class Layout extends \stdClass
             $this->path = $path;
         }
     }
+    
+    public static function createForApp($app = 'app')
+    {
+        return (new static('..' . DIRECTORY_SEPARATOR . $app . DIRECTORY_SEPARATOR . 'resources' . DIRECTORY_SEPARATOR . 'layouts'));
+    }    
         
     public function __get($name)
     {
         return !empty($this->content[$name]) ? $this->content[$name] : '';
+    }
+    
+    public function name($name)
+    {
+        $this->name = $name;
+        
+        return $this;
     }
 
     function addContent($content)

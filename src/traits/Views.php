@@ -15,10 +15,19 @@ trait Views
      */
     protected function view($name, $global = false)
     {
+
         if (!isset($this->views[$name])) {
-            $this->views[$name] = new \Sofi\mvc\View(
-                    $global ? './../app/resources/views' : dirname(__FILE__) . DS . '../resources/views/'
-            );
+            if ($global) {
+                $this->views[$name] = new \Sofi\mvc\View('./../app/resources/views');
+            } else {
+                $ex = explode('\\', __CLASS__);
+                array_pop($ex);
+                $bp = implode('/', $ex);
+                $this->views[$name] = new \Sofi\mvc\View(
+                        realpath(BASE_PATH . DS . $bp . DS . '../resources/views/')
+                );
+            }
+
             $this->views[$name]->name($name);
         }
 
@@ -35,7 +44,8 @@ trait Views
     protected function render($name, $params = [], $layout = null)
     {
         $view = $this->view($name);
-        if ($layout != null) $view->layout($layout);
+        if ($layout != null)
+            $view->layout($layout);
         $view->params($params);
         return $view->render();
     }

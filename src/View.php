@@ -21,6 +21,12 @@ class View extends \stdClass
             $this->path = $path;
         }
     }
+    
+    public static function createForApp($app = 'app')
+    {
+        return (new static('..' . DIRECTORY_SEPARATOR . $app . DIRECTORY_SEPARATOR . 'resources' . DIRECTORY_SEPARATOR . 'views'));
+    }
+    
 
     public function name($name)
     {

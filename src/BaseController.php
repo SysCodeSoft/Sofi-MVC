@@ -4,14 +4,15 @@ namespace Sofi\mvc;
 
 class BaseController
 {
-
     protected $initialized = false;
     
     protected $Context = null;
-
-    function init($Request, $Response, $Route)
+    
+    function init($Context = null)
     {
         if (!$this->initialized) {
+            
+            $this->Context = $Context;
             
             $this->initialized = true;
         }
@@ -19,7 +20,7 @@ class BaseController
 
     function end()
     {
-        
+        $this->initialized = false;
     }
 
 }
