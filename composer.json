@@ -20,7 +20,7 @@
     "require": {
         "php": ">=5.6.0",
         "ext-mbstring": "*",
-        "sofi/sofi-base": "^1.0@dev"
+        "syscode/sofi-base": "^1.0@dev"
     },
     "autoload": {
         "psr-4": {
