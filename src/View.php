@@ -14,6 +14,8 @@ class View extends \stdClass
     protected $params = [];
     protected $layout = '';
     protected $result = null;
+    
+    protected $blocks = [];
 
     public function __construct($path = null)
     {
@@ -34,6 +36,10 @@ class View extends \stdClass
         $this->result = null;
         return $this;
     }
+    
+    public function getLayout(){
+        return $this->layout;
+    }
 
     public function layout($name)
     {
@@ -53,6 +59,18 @@ class View extends \stdClass
     {
         $this->result = null;
         return $this;
+    }
+    
+    function start() {
+        ob_start();
+    }
+    
+    function end($name) {
+        $this->blocks[$name] = ob_get_clean();
+    }
+    
+    function block($name) {
+        return !empty($this->blocks[$name]) ? $this->blocks[$name] : '';
     }
 
     protected function _render($update = false)
@@ -92,11 +110,11 @@ class View extends \stdClass
 
     public function render($update = false)
     {
-        if ($this->layout == '') {
+//        if ($this->layout == '') {
             return $this->_render($update);
-        } else {
-            return $this->_renderWidthLayout();
-        }
+//        } else {
+//            return $this->_renderWidthLayout();
+//        }
     }
 
 }

@@ -17,7 +17,9 @@ class BaseController
             $this->initialized = true;
         }
     }
-
+    
+    function __construct() {}
+    
     function end()
     {
         $this->initialized = false;
