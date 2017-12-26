@@ -12,7 +12,6 @@ class View extends \stdClass
     protected $path = '..' . DIRECTORY_SEPARATOR . 'app' . DIRECTORY_SEPARATOR . 'resources' . DIRECTORY_SEPARATOR . 'views';
     protected $name = 'index';
     protected $params = [];
-    protected $layout = '';
     protected $result = null;
     
     protected $blocks = [];
@@ -37,17 +36,6 @@ class View extends \stdClass
         return $this;
     }
     
-    public function getLayout(){
-        return $this->layout;
-    }
-
-    public function layout($name)
-    {
-        $this->layout = $name;
-        $this->result = null;
-        return $this;
-    }
-
     public function params(array $params)
     {
         $this->params = $params;
@@ -73,7 +61,7 @@ class View extends \stdClass
         return !empty($this->blocks[$name]) ? $this->blocks[$name] : '';
     }
 
-    protected function _render($update = false)
+    function render($update = false)
     {
         if ($update) {
             $this->result = null;
@@ -86,35 +74,9 @@ class View extends \stdClass
         }
         return $this->result;
     }
-
-    protected function _renderWidthLayout()
+    
+    function __toString()
     {
-        $content = $this->_render();
-
-        $name = $this->name;
-        $path = $this->path;
-        $params = $this->params;
-
-        $this->name = $this->layout;
-        $this->path = realpath($this->path . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'layouts');
-        $this->params = ['content' => $content];
-
-        $rs = $this->_render(true);
-
-        $this->name = $name;
-        $this->path = $path;
-        $this->params = $params;
-
-        return $rs;
+        return $this->render();
     }
-
-    public function render($update = false)
-    {
-//        if ($this->layout == '') {
-            return $this->_render($update);
-//        } else {
-//            return $this->_renderWidthLayout();
-//        }
-    }
-
 }

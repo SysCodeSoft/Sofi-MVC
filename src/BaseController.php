@@ -2,27 +2,14 @@
 
 namespace Sofi\mvc;
 
-class BaseController
+class BaseController extends \stdClass
 {
-    protected $initialized = false;
+    use \Sofi\Base\traits\Init;
     
     protected $Context = null;
-    
-    function init($Context = null)
-    {
-        if (!$this->initialized) {
-            
-            $this->Context = $Context;
-            
-            $this->initialized = true;
-        }
-    }
-    
-    function __construct() {}
-    
-    function end()
-    {
-        $this->initialized = false;
-    }
 
+    public function __construct()
+    {
+        ;
+    }
 }

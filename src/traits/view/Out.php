@@ -1,6 +1,6 @@
 <?php
 
-namespace Sofi\mvc\traits\view;
+namespace Sofi\MVC\traits\view;
 
 trait Out
 {

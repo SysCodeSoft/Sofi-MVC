@@ -1,6 +1,6 @@
 <?php
 
-namespace Sofi\mvc\traits;
+namespace Sofi\MVC\traits;
 
 trait Redirect
 {
