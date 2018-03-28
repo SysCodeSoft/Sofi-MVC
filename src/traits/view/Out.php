@@ -24,7 +24,8 @@ trait Out
             extract($params);
             include $file;
         } else {
-            throw new \Exception('Snippet not found ' . $name);
+            return '';
+//            throw new \Exception('Snippet not found ' . $name);
         }
     }
 

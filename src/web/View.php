@@ -1,6 +1,6 @@
 <?php
 
-namespace Sofi\mvc;
+namespace Sofi\mvc\web;
 
 class View extends \stdClass
 {
@@ -15,6 +15,8 @@ class View extends \stdClass
     protected $result = null;
     
     protected $blocks = [];
+    
+    public $Context;
 
     public function __construct($path = null)
     {
@@ -46,6 +48,7 @@ class View extends \stdClass
     public function clear()
     {
         $this->result = null;
+        $this->blocks = [];
         return $this;
     }
     

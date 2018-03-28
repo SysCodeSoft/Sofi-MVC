@@ -2,7 +2,7 @@
 
 namespace Sofi\mvc;
 
-class BaseController extends \stdClass
+abstract class Action extends \stdClass
 {
 
     use \Sofi\Base\traits\Init;
@@ -17,9 +17,6 @@ class BaseController extends \stdClass
         ;
     }
     
-    public function run($action, $params)
-    {
-        return call_user_func_array([$this, $action], $params);
-    }
+    abstract public function run(...$params);
 
 }

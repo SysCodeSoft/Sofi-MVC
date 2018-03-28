@@ -18,16 +18,18 @@ trait Views
 
         if (!isset($this->views[$name])) {
             if ($global) {
-                $this->views[$name] = new \Sofi\mvc\View(BASE_PATH.'app/resources/views');
+                $this->views[$name] = new \Sofi\mvc\web\View(BASE_PATH.'app/resources/views');
             } else {
                 $ex = explode('\\', __CLASS__);
                 array_pop($ex);
                 $bp = implode('/', $ex);
-                $this->views[$name] = new \Sofi\mvc\View(
+                $this->views[$name] = new \Sofi\mvc\web\View(
                         realpath(BASE_PATH . $bp . DS . '../resources/views/')
                 );
             }
 
+            $this->views[$name]->Context = $this->Context;
+            
             $this->views[$name]->name($name);
         }
 

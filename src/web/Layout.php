@@ -1,13 +1,13 @@
 <?php
 
-namespace Sofi\mvc;
+namespace Sofi\mvc\web;
 
 use Sofi\Base\interfaces\InitializedInterface;
 
 class Layout extends \stdClass implements InitializedInterface
 {
 
-    use traits\view\Out;
+    use \Sofi\MVC\traits\view\Out;
     use \Sofi\Base\traits\Init;
 
     const VIEW_EXT = '.phtml';
@@ -17,6 +17,12 @@ class Layout extends \stdClass implements InitializedInterface
     protected $content = [];
     protected $helpers = [];
     protected $params = [];
+    
+    /**
+     *
+     * @var \Sofi\Context $Context; 
+     */
+    public $Context;
 
     public function __construct(string $path = null)
     {
@@ -121,6 +127,13 @@ class Layout extends \stdClass implements InitializedInterface
         $this->out();
 
         return ob_get_clean();
+    }
+    
+    function __invoke($contents)
+    {
+        $this->addContent($contents);
+        
+        return $this->render();
     }
 
 }
