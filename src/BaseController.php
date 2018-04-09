@@ -11,11 +11,6 @@ class BaseController extends \stdClass
      * @var \Sofi\Context $Context
      */
     protected $Context = null;
-
-    public function __construct()
-    {
-        ;
-    }
     
     public function run($action, $params)
     {
